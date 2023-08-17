@@ -33,8 +33,47 @@ public class ArrayDeque<T>{
         size++;
     }
 
-    public T enqueue(){
+    public T dequeue(){
+        if(size == 0){
+            System.out.print("Queue IS EMPTY");
+            @SuppressWarnings("unchecked") T empty = (T) "";
+            return empty;
+        }
+        Object data = arr[front];
+        arr[front] = null;
+        front = (front + 1) % arr.length;
+        size--;
+        @SuppressWarnings("unchecked") T oldValue = (T) data;
+        return oldValue;
+    }
 
+    public void clear(){
+        size = 0;
+        front = 0;
+    }
+
+    public T peek(){
+        if(size == 0){
+            @SuppressWarnings("unchecked") T empty = (T) "Queue IS EMPTY BROO ";
+            return empty;
+        } else{
+            Object data = arr[front];
+            @SuppressWarnings("unchecked") T head = (T) data;
+            return head;
+        }
+    }
+
+    public String toString(){
+        String result = "";
+        for(int i = 0; i < arr.length; i++){
+            result = result + arr[i] + ", ";
+        }
+        result = "[" + result.replaceAll(", $", "") + "]";
+        return  result;
+    }
+
+    public int getFront(){
+        return front;
     }
 
 }
