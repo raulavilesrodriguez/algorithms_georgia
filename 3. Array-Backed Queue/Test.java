@@ -82,5 +82,6 @@ public class Test {
         System.out.println("PEEK: " + array2.peek());
         array2.enqueue(null);
 
+
     }
 }
