@@ -8,15 +8,30 @@ public class BST<T extends Comparable<? super T>> {
         this.root = null;
     }
 
+    
+    /** 
+     * @return boolean
+     */
     /*Methods*/
     public boolean isEmpty(){
         return (root == null);
     }
 
+    
+    /** 
+     * @param data
+     * add node to the tree
+     */
     public void add(T data){
         root = addH(data, root);
     }
 
+    
+    /** 
+     * @param data
+     * @param curr
+     * @return BSTNode<T>
+     */
     private BSTNode<T> addH(T data, BSTNode<T> curr){
         if(data == null){
             throw new IllegalArgumentException("Error: You cannot add null data to the tree");
@@ -35,10 +50,21 @@ public class BST<T extends Comparable<? super T>> {
         return curr;
     }
 
+    
+    /** 
+     * @param data
+     * remove one node of the tree
+     */
     public void remove(T data){
         root = removeH(data, root);
     }
 
+    
+    /** 
+     * @param data
+     * @param curr
+     * @return BSTNode<T>
+     */
     private BSTNode<T> removeH(T data, BSTNode<T> curr){
         if(data == null){
             throw new IllegalArgumentException("Error: You cannot add null data to the tree");
@@ -71,6 +97,12 @@ public class BST<T extends Comparable<? super T>> {
         return curr;
     }
 
+    
+    /** 
+     * @param curr
+     * @return BSTNode<T>
+     * helper method
+     */
     private BSTNode<T> removeSuccesor(BSTNode<T> curr){
         if(curr.getLeft() == null){
             succesor = curr;
@@ -82,10 +114,22 @@ public class BST<T extends Comparable<? super T>> {
         }
     }
 
+    
+    /** 
+     * @param data
+     * @return T
+     * find in function of data
+     */
     public T find(T data){
         return findH(data, root);
     }
 
+    
+    /** 
+     * @param data
+     * @param curr
+     * @return T
+     */
     private T findH(T data, BSTNode<T> curr){
         if(curr == null){
             return null;
@@ -101,18 +145,107 @@ public class BST<T extends Comparable<? super T>> {
         }
     }
 
-    public void preOrder(BSTNode<T> root){
+    /**
+     * TRAVERSE
+     */
+    public void preOrder(){
         preOrderH(root);
     }
 
+    
+    /** 
+     * @param curr
+     */
     private void preOrderH(BSTNode<T> curr){
         if(curr != null){
-            System.out.print(curr.getData());
+            System.out.print(curr.getData() + " ");
             preOrderH(curr.getLeft());
             preOrderH(curr.getRight());
         }
     }
 
+    public void postOrder(){
+        postOrderH(root);
+    }
+
     
+    /** 
+     * @param curr
+     */
+    private void postOrderH(BSTNode<T> curr){
+        if(curr != null){
+            postOrderH(curr.getLeft());
+            postOrderH(curr.getRight());
+            System.out.print(curr.getData() + " ");
+        }
+    }
+
+    public void inOrder(){
+        inOrderH(root);
+    }
+
+    
+    /** 
+     * @param curr
+     */
+    private void inOrderH(BSTNode<T> curr){
+        if(curr != null){
+            inOrderH(curr.getLeft());
+            System.out.print(curr.getData() + " ");
+            inOrderH(curr.getRight());
+        }
+    }
+
+    public void clear(){
+        root = null;
+        size = 0;
+    }
+
+    
+    /** 
+     * @return int
+     */
+    public int getSize(){
+        return size;
+    }
+    
+    
+    /** 
+     * @return int
+     */
+    public int heigh(){
+        return heighH(root);
+    }
+
+    
+    /** 
+     * @param curr
+     * @return int
+     */
+    private int heighH(BSTNode<T> curr){
+        if(curr == null){
+            return 0;
+        }
+        int leftHeight = heighH(curr.getLeft());
+        int rightHeigh = heighH(curr.getRight());
+        return Math.max(leftHeight, rightHeigh) + 1;
+    }
+
+    public void contain(){
+        containH(root);
+    }
+
+    
+    /** 
+     * @param curr
+     */
+    private void containH(BSTNode<T> curr){
+        if(curr != null){
+            System.out.print(curr.toString() + " ");
+            preOrderH(curr.getLeft());
+            preOrderH(curr.getRight());
+        }
+    }
+
 
 }
