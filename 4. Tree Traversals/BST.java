@@ -21,6 +21,7 @@ public class BST<T extends Comparable<? super T>> {
     /** 
      * @param data
      * add node to the tree
+     * Pointer Reinforcement 
      */
     public void add(T data){
         root = addH(data, root);
@@ -31,6 +32,8 @@ public class BST<T extends Comparable<? super T>> {
      * @param data
      * @param curr
      * @return BSTNode<T>
+     * cuando curr == null (base case) ahí se actualiza y 
+     * se setea el node
      */
     private BSTNode<T> addH(T data, BSTNode<T> curr){
         if(data == null){
@@ -54,6 +57,7 @@ public class BST<T extends Comparable<? super T>> {
     /** 
      * @param data
      * remove one node of the tree
+     * Pointer Reinforcement 
      */
     public void remove(T data){
         root = removeH(data, root);
