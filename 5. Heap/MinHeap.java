@@ -198,7 +198,52 @@ public class MinHeap<T extends Comparable<? super T>> {
      * @throws java.util.NoSuchElementException if the heap is empty
      */
     public T remove() {
-        return backingArray[1];
+        int index = size;
+        T data = backingArray[1];
+        backingArray[1] = backingArray[index];
+        backingArray[index] = null;
+        index = 1;
+        while(2*index < size){
+            if(backingArray[2*index] != null && backingArray[2*index+1]!= null){
+                if(backingArray[index].compareTo(backingArray[2*index]) < 0 
+                && backingArray[index].compareTo(backingArray[2*index+1])<0){
+                    index = size;
+                }
+                else if(backingArray[2*index].compareTo(backingArray[2*index+1]) < 0){
+                    T dummy = backingArray[index];
+                    backingArray[index] = backingArray[2*index];
+                    backingArray[2*index] = dummy;
+                    index = 2 * index;
+                } 
+                else if(backingArray[2*index].compareTo(backingArray[2*index+1]) > 0){
+                    T dummy = backingArray[index];
+                    backingArray[index] = backingArray[2*index+1];
+                    backingArray[2*index+1] = dummy;
+                    index = 2*index + 1;
+                }
+            }
+            else if(backingArray[2*index] != null){
+                if(backingArray[index].compareTo(backingArray[2*index])<0){
+                    index = size;
+                } else {
+                    T dummy = backingArray[index];
+                    backingArray[index] = backingArray[2*index];
+                    backingArray[2*index] = dummy;
+                    index = 2*index;
+                }    
+            }
+            else if(backingArray[2*index+1] != null){
+                if(backingArray[index].compareTo(backingArray[2*index+1])<0){
+                    index = size;
+                } else {
+                    T dummy = backingArray[index];
+                    backingArray[index] = backingArray[2*index+1];
+                    backingArray[2*index+1] = dummy;
+                    index = 2*index + 1;
+                }
+            }
+        }
+        return data;
     }
 
     /**
@@ -208,6 +253,9 @@ public class MinHeap<T extends Comparable<? super T>> {
      * @throws java.util.NoSuchElementException if the heap is empty
      */
     public T getMin() {
+        if(isEmpty()){
+            throw new IllegalArgumentException("Your HEAP is empty");
+        }
         return backingArray[1];
     }
 
@@ -226,8 +274,10 @@ public class MinHeap<T extends Comparable<? super T>> {
      * Resets the backing array to a new array of the initial capacity and
      * resets the size.
      */
+    @SuppressWarnings("unchecked")
     public void clear() {
-
+        backingArray = (T[]) new Object[INITIAL_CAPACITY];
+        size = 0;
     }
 
     /**

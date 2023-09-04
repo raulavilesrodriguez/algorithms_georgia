@@ -27,5 +27,9 @@ public class Main {
         minHeap.add(0);
         System.out.println(minHeap.toString());
 
+        System.out.println("REMOVE (ENQUEUE) in MinHeap:");
+        System.out.println("Removing element: " + minHeap.remove());
+        System.out.println(minHeap.toString());
+
     }
 }
