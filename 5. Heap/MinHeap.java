@@ -4,9 +4,9 @@ import java.util.ArrayList;
  * Your implementation of a MinHeap.
  *
  * @author RAUL AVILES
- * @version 1.0
- * @userid bravi
- * @GTID 900000000
+ * @version 34.1
+ * @userid bravi_panda
+ * @GTID 0984059883
  *
  * Collaborators: LIST ALL COLLABORATORS YOU WORKED WITH HERE
  *
@@ -243,6 +243,7 @@ public class MinHeap<T extends Comparable<? super T>> {
                 }
             }
         }
+        size--;
         return data;
     }
 
@@ -276,7 +277,7 @@ public class MinHeap<T extends Comparable<? super T>> {
      */
     @SuppressWarnings("unchecked")
     public void clear() {
-        backingArray = (T[]) new Object[INITIAL_CAPACITY];
+        backingArray = (T[]) new Comparable[INITIAL_CAPACITY];
         size = 0;
     }
 

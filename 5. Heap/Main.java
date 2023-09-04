@@ -30,6 +30,18 @@ public class Main {
         System.out.println("REMOVE (ENQUEUE) in MinHeap:");
         System.out.println("Removing element: " + minHeap.remove());
         System.out.println(minHeap.toString());
+        System.out.println("REMOVE (ENQUEUE) in MinHeap:");
+        System.out.println("Removing element: " + minHeap.remove());
+        System.out.println(minHeap.toString());
+        System.out.println("REMOVE (ENQUEUE) in MinHeap:");
+        System.out.println("Removing element: " + minHeap.remove());
+        System.out.println(minHeap.toString());
+
+        System.out.println("MINIMUM: " + minHeap.getMin());
+        System.out.println("IS EMPTY?: " + minHeap.isEmpty());
+        minHeap.clear();
+        System.out.println(minHeap.toString());
+        System.out.println("Veamos: " + minHeap.getBackingArray());
 
     }
 }
