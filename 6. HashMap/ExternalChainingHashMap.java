@@ -9,7 +9,7 @@ import java.util.Set;
  * Your implementation of a ExternalChainingHashMap.
  *
  * @author RAUL AVILES RPDRIGUEZ
- * @version 19.0
+ * @version 49.3
  * @userid braviles
  * @GTID braviles
  *
@@ -24,9 +24,9 @@ import java.util.Set;
 * The initial capacity of the ExternalChainingHashMap when created with the
 * default constructor.
 *
-* DO NOT MODIFY THIS VARIABLE!
+* DO NOT MODIFY THIS VARIABLE! = 13
 */
-public static final int INITIAL_CAPACITY = 13;
+public static final int INITIAL_CAPACITY = 7;
 
 /*
 * The max load factor of the ExternalChainingHashMap.
@@ -106,10 +106,12 @@ public ExternalChainingHashMap(int initialCapacity) {
 * @throws java.lang.IllegalArgumentException if key or value is null
 */
 public V put(K key, V value) {
-    double LF = (size + 1) / table.length;
+    double LF = (1.0 * size + 1) / table.length;
     if(LF > MAX_LOAD_FACTOR){
         int newSize = 2 * table.length + 1;
+        int oldSize = size;
         resizeBackingTable(newSize);
+        size = size - oldSize;
     }
     V result = putH(key, value, table);
     return result;    
@@ -126,7 +128,7 @@ private V putH(K key, V value, ExternalChainingMapEntry<K, V>[] table){
     }
     else {
         boolean flag = false;
-        while(chain != null || !flag){
+        while(chain != null){
             if(chain.getKey() == key){
                 oldValue = chain.getValue();
                 chain.setValue(value);
@@ -145,6 +147,7 @@ private V putH(K key, V value, ExternalChainingMapEntry<K, V>[] table){
 }
 
 private int getIndex(K key, ExternalChainingMapEntry<K, V>[] table){
+    System.out.println("FOCA: " + Objects.hashCode(key));
     int index = Objects.hashCode(key) % table.length;
     return index < 0 ? (-1) * index : index;
 }
@@ -168,14 +171,20 @@ public V remove(K key) {
         throw new NoSuchElementException("Key: " + key + "Key is not in table");
     }
     else {
+        ExternalChainingMapEntry<K, V> prev = chain;
         boolean flag = false;
-        while(chain != null || !flag){
+        while(chain != null){
             if(chain.getKey() == key){
                 if(chain.getNext() == null){
                     removedData = chain.getValue();
-                    chain.setKey(null);
-                    chain.setValue(null);
+                    if(prev == chain){
+                        table[index] = null;
+                    } else {
+                        prev.setNext(chain.getNext());
+                    }
                     flag = true;
+                    size--; 
+                    break;
                 }
                 else if(chain.getNext().getNext() != null){
                     ExternalChainingMapEntry<K, V> newChain = new ExternalChainingMapEntry<>
@@ -188,6 +197,8 @@ public V remove(K key) {
                     chain.setValue(chain.getNext().getValue());
                     chain.setNext(newChain);
                     flag = true;
+                    size--; 
+                    break;
                 }
                 else {
                     removedData = chain.getValue();
@@ -195,13 +206,15 @@ public V remove(K key) {
                     chain.setValue(chain.getNext().getValue());
                     chain.setNext(null);
                     flag = true;
-                }
-                size--;   
+                    size--; 
+                    break;
+                }  
             }
+            prev = chain;
             chain = chain.getNext();
         }
         if(chain == null && !flag){
-            throw new NoSuchElementException("Key: " + key + "Key is not in table");
+            throw new NoSuchElementException("Key: " + key + " Key is not in table PARCE");
         } 
     }
     return removedData; 
@@ -223,11 +236,11 @@ public V get(K key) {
     ExternalChainingMapEntry<K, V> chain = table[index];
     V valueKey = null;
     if(chain == null){
-        throw new NoSuchElementException("Key: " + key + "Key is not in the map");
+        throw new NoSuchElementException("Key: " + key + " Key is not in the map MAN");
     }
     else {
         boolean flag = false;
-        while(chain != null || !flag){
+        while(chain != null){
             if(chain.getKey() == key){
                 valueKey = chain.getValue();
                 flag = true;
@@ -235,7 +248,7 @@ public V get(K key) {
             chain = chain.getNext();
         }
         if(chain == null && !flag){
-            throw new NoSuchElementException("Key: " + key + "Key is not in table");
+            throw new NoSuchElementException("Key: " + key + " Key is not in table BROO");
         } 
     }
     return valueKey;
@@ -256,7 +269,7 @@ public boolean containsKey(K key) {
     int index = getIndex(key, table);
     ExternalChainingMapEntry<K, V> chain = table[index];
     boolean flag = false;
-    while(chain != null || !flag){
+    while(chain != null){
         if(chain.getKey() == key){
             flag = true;
         }
@@ -276,7 +289,8 @@ public Set<K> keySet() {
     Set<K> keys = new HashSet<>();
     for (ExternalChainingMapEntry<K, V> entry : table) {
         while (entry != null) {
-            keys.add(entry.getKey());
+            //System.out.println("VEAA: " + entry);
+            keys.add((K)entry.getKey());
             entry = entry.getNext();
         }
     }
@@ -331,7 +345,6 @@ public void resizeBackingTable(int length) {
     ExternalChainingMapEntry<K, V>[] copy = (ExternalChainingMapEntry<K, V>[]) 
                                             (new ExternalChainingMapEntry[length]);
     for (ExternalChainingMapEntry<K, V> entry : table) {
-        size = 0;
         while (entry != null) {
             putH(entry.getKey(), entry.getValue(), copy);
             entry = entry.getNext();
@@ -378,4 +391,10 @@ public int size() {
 // DO NOT MODIFY THIS METHOD!
 return size;
 }
+
+public int lenght(){
+    return table.length;
+}
+
+
 }
