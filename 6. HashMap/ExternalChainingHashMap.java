@@ -270,7 +270,7 @@ public boolean containsKey(K key) {
     ExternalChainingMapEntry<K, V> chain = table[index];
     boolean flag = false;
     while(chain != null){
-        if(chain.getKey() == key){
+        if(chain.getKey().equals(key)){
             flag = true;
         }
         chain = chain.getNext();
