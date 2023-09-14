@@ -11,7 +11,7 @@ public class Main {
         System.out.println("Lenght Map: " + map.lenght());
         System.out.println(map.getTable()[1].getNext());
         System.out.println(map.remove(1));
-        System.out.println(map.getTable()[1].getNext());
+        //System.out.println(map.getTable()[1].getNext());
         System.out.println(map.remove(15));
         System.out.println(map.getTable()[1]);
         System.out.println("KEYS: " + map.keySet());
@@ -36,7 +36,7 @@ public class Main {
         System.out.println("VALUES: " + map.values());
         System.out.println("SIZE: " + map.size());
         System.out.println("Lenght Map: " + map.lenght());
-        System.out.println(map.getTable()[0].getNext().getNext().getNext());
+        //System.out.println(map.getTable()[0].getNext().getNext().getNext());
         
         // Multiple nodes. Test Remove()
         System.out.println(map.remove(15));
@@ -44,7 +44,7 @@ public class Main {
         System.out.println("VALUES: " + map.values());
         System.out.println("SIZE: " + map.size());
         System.out.println("Lenght Map: " + map.lenght());
-        System.out.println(map.getTable()[0].getNext().getNext());
+        //System.out.println(map.getTable()[0].getNext().getNext());
         System.out.println(map.containsKey(15));
 
         // One node. Test Remove()
@@ -84,7 +84,33 @@ public class Main {
         System.out.println("VALUES: " + mapS.values());
         System.out.println("SIZE: " + mapS.size());
         System.out.println("Lenght Map: " + mapS.lenght());
-        System.out.println(mapS.getTable()[0].getNext());
+        //System.out.println(mapS.getTable()[0].getNext());
+
+        ExternalChainingHashMap<Integer, Integer> map2 = new ExternalChainingHashMap<>();
+        System.out.println("Lenght Map2: " + map2.lenght());
+        map2.put(43, 43);
+        map2.put(34, 34);
+        map2.put(27, 27);
+        map2.put(17, 17);
+        map2.put(23, 23);
+        map2.put(30, 30);
+
+        System.out.println(map2.getTable()[0]);
+        System.out.println(map2.getTable()[1]);
+        System.out.println(map2.getTable()[2]);
+        System.out.println(map2.getTable()[3]);
+        System.out.println(map2.getTable()[4]);
+        System.out.println(map2.getTable()[5]);
+        System.out.println(map2.getTable()[6]);
+        System.out.println(map2.getTable()[7]);
+        System.out.println(map2.getTable()[8]);
+        System.out.println(map2.getTable()[9]);
+        System.out.println(map2.getTable()[10]);
+        System.out.println(map2.getTable()[11]);
+        System.out.println(map2.getTable()[12]);
+        System.out.println(map2.getTable()[13]);
+        System.out.println(map2.getTable()[14]);
+        System.out.println("Lenght Map2: " + map2.lenght());
 
     }
 }
