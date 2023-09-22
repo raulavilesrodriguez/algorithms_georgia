@@ -116,7 +116,7 @@ public class BST<T extends Comparable<? super T>> {
 
     private BSTNode<T> removeSuccesor(BSTNode<T> curr, BSTNode<T> dummy2){
         if(curr.getLeft() == null){
-            dummy2.setData(curr.getData());;
+            dummy2.setData(curr.getData());
             return curr.getRight();
         }
         else{
