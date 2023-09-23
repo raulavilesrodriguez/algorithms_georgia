@@ -213,8 +213,11 @@ public class AVL<T extends Comparable<? super T>> {
      * @throws java.util.NoSuchElementException   if the data is not found
      */
     public T remove(T data) {
+        if(data == null){
+            throw new IllegalArgumentException("Error: You cannot remove null data to the tree");
+        }
         AVLNode<T> dummy = new AVLNode<T>(null);
-        root = removeNode(data, root);
+        root = removeH(data, root, dummy);
         return dummy.getData();
     }
 
@@ -222,11 +225,40 @@ public class AVL<T extends Comparable<? super T>> {
      * Helper method for remove.
      * Traverses the BST in search for node matching the given data and removes it from the tree.
      * @param data the data to remove
-     * @param current the current node being traversed in the BST
+     * @param curr the current node being traversed in the BST
      * @return the modified BST with removed data (if found)
      */
-    private AVLNode<T> removeNode(T data, AVLNode<T> current) {
-        
+    private AVLNode<T> removeH(T data, AVLNode<T> curr, AVLNode<T> dummy) {
+        if(curr == null){
+            throw new NoSuchElementException("DATA is not in the AVL tree");
+        }
+        else if(data.compareTo(curr.getData())<0){
+            curr.setLeft(removeH(data, curr.getLeft(), dummy));
+        }
+        else if(data.compareTo(curr.getData())>0){
+            curr.setRight(removeH(data, curr.getRight(), dummy));
+        }
+        else {
+            dummy.setData(curr.getData());
+            size--;
+            if(curr.getLeft() == null && curr.getRight() == null){
+                return null;
+            }
+            else if(curr.getLeft() == null){
+                return curr.getRight();
+            }
+            else if(curr.getRight() == null){
+                return curr.getLeft();
+            }
+            else{
+                AVLNode<T> dummy2 = new AVLNode<T>(null);
+                curr.setRight(removeSuccesor(curr.getRight(), dummy2));
+                curr.setData(dummy2.getData());
+            }
+        }
+        updateHeightAndBF(curr);
+        curr = balance(curr);
+        return curr;
     }
 
     /***
@@ -234,8 +266,15 @@ public class AVL<T extends Comparable<? super T>> {
      * @param node the child node of the parent node that we are finding the successor for
      * @return successor for parent node
      */
-    private T getSucessor(AVLNode<T> node) {
-        
+    private AVLNode<T> removeSuccesor(AVLNode<T> curr, AVLNode<T> dummy2) {
+        if(curr.getLeft() == null){
+            dummy2.setData(curr.getData());
+            return curr.getRight();
+        }
+        else{
+            curr.setLeft(removeSuccesor(curr.getLeft(), dummy2));
+            return curr;
+        }
     }
 
 
@@ -253,7 +292,10 @@ public class AVL<T extends Comparable<? super T>> {
      * @throws java.util.NoSuchElementException   if the data is not in the tree
      */
     public T get(T data) {
-        
+        if(data == null){
+            throw new IllegalArgumentException("Error: You cannot remove null data to the tree");
+        }
+        return getT(data, root);
     }
 
     /***
@@ -262,8 +304,19 @@ public class AVL<T extends Comparable<? super T>> {
      * @param current current node being accessed in tree traversal
      * @return if data is in the tree, returns the node that contains it. Else, returns 'null'.
      */
-    private T getT(T data, AVLNode<T> current) {
-        
+    private T getT(T data, AVLNode<T> curr) {
+        if(curr == null){
+            throw new NoSuchElementException("DATA is not in the AVL tree");
+        }
+        else if(data.compareTo(curr.getData())<0){
+            return getT(data, curr.getLeft());
+        }
+        else if(data.compareTo(curr.getData())>0){
+            return getT(data, curr.getRight());
+        }
+        else{
+            return curr.getData();
+        }
     }
 
     /**
@@ -278,7 +331,26 @@ public class AVL<T extends Comparable<? super T>> {
      * @throws java.lang.IllegalArgumentException if data is null
      */
     public boolean contains(T data) {
-        
+        if(data == null){
+            throw new IllegalArgumentException("Error: You cannot remove null data to the tree");
+        }
+        return containsH(data, root);
+    }
+
+    private boolean containsH(T data, AVLNode<T> curr){
+        if(curr == null){
+            return false;
+        }
+        else if(data.compareTo(curr.getData())<0){
+            return containsH(data, curr.getLeft());
+        }
+        else if(data.compareTo(curr.getData())>0){
+            return containsH(data, curr.getRight());
+        }
+        else{
+            return true;
+        }
+    
     }
 
     /**
