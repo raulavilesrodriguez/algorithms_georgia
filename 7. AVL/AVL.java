@@ -101,10 +101,29 @@ public class AVL<T extends Comparable<? super T>> {
      * @throws java.lang.IllegalArgumentException if data is null
      */
     public void add(T data) {
-        
+        root = addH(data, root);
     }
 
-    
+    private AVLNode<T> addH(T data, AVLNode<T> curr){
+        if(data == null){
+            throw new IllegalArgumentException("Error: You cannot add null data to the tree");
+        }
+        if(curr == null){
+            size++;
+            AVLNode<T> node = new AVLNode<T>(data);
+            updateHeightAndBF(node);
+            return node;
+        }
+        else if(data.compareTo(curr.getData())<0){
+            curr.setLeft(addH(data, curr.getLeft()));
+        }
+        else if(data.compareTo(curr.getData())>0){
+            curr.setRight(addH(data, curr.getRight()));
+        }
+        updateHeightAndBF(curr);
+        curr = balance(curr);
+        return curr;
+    }
 
     /**
      * Helper method to balance AVL Tree
@@ -194,8 +213,9 @@ public class AVL<T extends Comparable<? super T>> {
      * @throws java.util.NoSuchElementException   if the data is not found
      */
     public T remove(T data) {
-        
-
+        AVLNode<T> dummy = new AVLNode<T>(null);
+        root = removeNode(data, root);
+        return dummy.getData();
     }
 
     /***
