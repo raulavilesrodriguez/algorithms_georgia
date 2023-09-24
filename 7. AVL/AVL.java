@@ -273,6 +273,8 @@ public class AVL<T extends Comparable<? super T>> {
         }
         else{
             curr.setLeft(removeSuccesor(curr.getLeft(), dummy2));
+            updateHeightAndBF(curr);
+            curr = balance(curr);
             return curr;
         }
     }
@@ -293,7 +295,7 @@ public class AVL<T extends Comparable<? super T>> {
      */
     public T get(T data) {
         if(data == null){
-            throw new IllegalArgumentException("Error: You cannot remove null data to the tree");
+            throw new IllegalArgumentException("Error: You cannot remove null data to the tree PARCE");
         }
         return getT(data, root);
     }
@@ -306,7 +308,7 @@ public class AVL<T extends Comparable<? super T>> {
      */
     private T getT(T data, AVLNode<T> curr) {
         if(curr == null){
-            throw new NoSuchElementException("DATA is not in the AVL tree");
+            throw new NoSuchElementException("DATA is not in the AVL tree BROO");
         }
         else if(data.compareTo(curr.getData())<0){
             return getT(data, curr.getLeft());
@@ -332,7 +334,7 @@ public class AVL<T extends Comparable<? super T>> {
      */
     public boolean contains(T data) {
         if(data == null){
-            throw new IllegalArgumentException("Error: You cannot remove null data to the tree");
+            throw new IllegalArgumentException("Error: You cannot remove null data to the tree AMI");
         }
         return containsH(data, root);
     }
@@ -359,18 +361,23 @@ public class AVL<T extends Comparable<? super T>> {
      * @return the height of the root of the tree, -1 if the tree is empty
      */
     public int height() {
-        
+        if(root == null){
+            return -1;
+        }
+        else{
+            return root.getHeight();
+        }
     }
 
     
-
     /**
      * Clears the tree.
      *
      * Clears all data and resets the size.
      */
     public void clear() {
-        
+        root = null;
+        size = 0;    
     }
 
     /**
@@ -530,6 +537,22 @@ public class AVL<T extends Comparable<? super T>> {
     public int size() {
         // DO NOT MODIFY THIS METHOD!
         return size;
+    }
+
+    public void preOrder(){
+        preOrderH(root);
+    }
+
+    
+    /** 
+     * @param curr
+     */
+    private void preOrderH(AVLNode<T> curr){
+        if(curr != null){
+            System.out.println(curr.getData() + " " + "Height:" + curr.getHeight() + " BF:" + curr.getBalanceFactor());
+            preOrderH(curr.getLeft());
+            preOrderH(curr.getRight());
+        }
     }
 }
 
