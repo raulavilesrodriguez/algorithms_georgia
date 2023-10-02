@@ -41,6 +41,13 @@ public class Sorting {
      *                                            null
      */
     public static <T> void bubbleSort(T[] arr, Comparator<T> comparator) {
+        if(arr == null){
+            throw new IllegalArgumentException("Cannot sort null array BROO");
+        }
+        if(comparator == null){
+            throw new IllegalArgumentException("Cannot sort with a null comparator PARCE");
+        }
+
         int swapCount = 0;
         int compaCount = 0;
 
@@ -88,6 +95,14 @@ public class Sorting {
      *                                            null
      */
     public static <T> void selectionSort(T[] arr, Comparator<T> comparator) {
+        if(arr == null){
+            throw new IllegalArgumentException("Cannot sort null array BROO");
+        }
+        if(comparator == null){
+            throw new 
+            IllegalArgumentException("Cannot sort with a null comparator PARCE");
+        }
+
         
     }
 
