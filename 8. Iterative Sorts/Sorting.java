@@ -193,7 +193,55 @@ public class Sorting {
      *                                            null
      */
     public static <T> void cocktailSort(T[] arr, Comparator<T> comparator) {
-        
+        if(arr == null){
+            throw new IllegalArgumentException("Cannot sort null array BROO");
+        }
+        if(comparator == null){
+            throw new IllegalArgumentException("Cannot sort with a null comparator PARCE");
+        }
+
+        int swapCount = 0;
+        int compaCount = 0;
+
+        int end = arr.length - 1;
+        int start = 0;
+        boolean swapsMade = true;
+        int swapped = start;
+
+        while(swapsMade){
+            swapsMade = false;
+            for(int i = start; i< end; i++){
+                if(comparator.compare(arr[i], arr[i+1])>0){
+                    T dummy = arr[i];
+                    arr[i] = arr[i+1];
+                    arr[i+1] = dummy;
+                    swapsMade = true;
+                    swapped = i;
+                    swapCount++;
+                }
+                compaCount++;
+            }
+            end = swapped;
+            if(swapsMade){
+                swapsMade = false;
+                for(int i = end; i>=start; i--){
+                    if(i>0 && comparator.compare(arr[i-1], arr[i])>0){
+                        T dummy = arr[i-1];
+                        arr[i-1] = arr[i];
+                        arr[i] = dummy;
+                        swapsMade = true;
+                        swapped = i;
+                        swapCount++;
+                    }
+                    compaCount++;
+                }
+                start = swapped;
+            }
+        }
+
+        System.out.println("SWAP COUNT:" + swapCount);
+        System.out.println("COMPARASION COUNT:" + compaCount);
+
     }
 
     
