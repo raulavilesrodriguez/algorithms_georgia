@@ -25,13 +25,22 @@ public class Main {
 
         Integer[] arr2 = {9,13,10,13,10,2,7};
         System.out.println("Unsorted array:");
-        String result = toString(arr2);
-        System.out.println(result);
+        String result1 = toString(arr2);
+        System.out.println(result1);
         System.out.println("Sorted array with BUBBLE SORT:");
         //Sorting.bubbleSort(arr2, comp);
         Sorting.bubbleSort(arr2, (a, b) -> a - b);
-        String resultSorted = toString(arr2);
-        System.out.println(resultSorted);
+        String resultBubble = toString(arr2);
+        System.out.println(resultBubble);
+
+        Integer[] arr3 = {8,5,5,8,7,7,12,13,11,1,1};
+        System.out.println("Unsorted array:");
+        String result2 = toString(arr3);
+        System.out.println(result2);
+        System.out.println("Sorted array with SELECTION SORT:");
+        Sorting.selectionSort(arr3, (a, b) -> a - b);
+        String resultSelection = toString(arr3);
+        System.out.println(resultSelection);
 
     }
 

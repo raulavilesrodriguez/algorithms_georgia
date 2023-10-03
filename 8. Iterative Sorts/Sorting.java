@@ -103,7 +103,24 @@ public class Sorting {
             IllegalArgumentException("Cannot sort with a null comparator PARCE");
         }
 
-        
+        int swapCount = -1;
+        int compaCount = 0;
+
+        for(int i = arr.length-1; i>=0; i--){
+            int max = i;
+            for(int j= i -1; j>=0; j--){
+                if(comparator.compare(arr[j], arr[max])>0){
+                    max = j;
+                }
+                compaCount++;
+            }
+            T dummy = arr[i];
+            arr[i] = arr[max];
+            arr[max] = dummy;
+            swapCount++;
+        }
+        System.out.println("SWAP COUNT:" + swapCount);
+        System.out.println("COMPARASION COUNT:" + compaCount);
     }
 
     /**
