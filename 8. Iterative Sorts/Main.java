@@ -20,7 +20,7 @@ public class Main {
         list.add(new MyObject(3));
         list.add(new MyObject(12));
         list.add(new MyObject(5));
-        //Comparacion<Integer> comp = new Comparacion<>();
+        Comparacion<Integer> comp = new Comparacion<>();
         
 
         Integer[] arr2 = {9,13,10,13,10,2,7};
@@ -42,6 +42,14 @@ public class Main {
         String resultSelection = toString(arr3);
         System.out.println(resultSelection);
 
+        Integer[] arr4 = {8,6,4,3,13,2,2,3,9,3};
+        System.out.println("Unsorted array:");
+        String result3 = toString(arr4);
+        System.out.println(result3);
+        System.out.println("Sorted array with INSERTION SORT:");
+        Sorting.insertionSort(arr4, comp);
+        String resultInsertion = toString(arr4);
+        System.out.println(resultInsertion);
     }
 
     // Method to print results

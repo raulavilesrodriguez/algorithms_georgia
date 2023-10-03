@@ -144,7 +144,29 @@ public class Sorting {
      *                                            null
      */
     public static <T> void insertionSort(T[] arr, Comparator<T> comparator) {
-        
+        if(arr == null){
+            throw new IllegalArgumentException("Cannot sort null array BROO");
+        }
+        if(comparator == null){
+            throw new 
+            IllegalArgumentException("Cannot sort with a null comparator PARCE");
+        }
+
+        int swapCount = 0;
+
+        for(int i = 1; i<= arr.length-1; i++){
+            int j = i;
+            while(j>0 && comparator.compare(arr[j-1], arr[j])>0){
+                T dummy = arr[j];
+                arr[j] = arr[j-1];
+                arr[j-1] = dummy;
+                j--;
+                swapCount++;
+            }
+        }
+
+        System.out.println("SWAP COUNT:" + swapCount);
+
     }
 
     /**
