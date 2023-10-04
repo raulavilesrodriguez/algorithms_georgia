@@ -51,12 +51,12 @@ public class Main {
         String resultInsertion = toString(arr4);
         System.out.println(resultInsertion);
 
-        Integer[] arr5 = {4,11,8,11,9,1,7,9,6,11,1};
+        Integer[] arr5 = {4,69,8,11,9,1,7,9,6,11,1};
         System.out.println("Unsorted array:");
         String result4 = toString(arr5);
         System.out.println(result4);
         System.out.println("Sorted array with COCKTAIL SHAKER SORT:");
-        Sorting.cocktailSort(arr5, (a, b) -> a - b);
+        Sorting.cocktailSort(arr5, comp);
         String resultCocktail = toString(arr5);
         System.out.println(resultCocktail);
 

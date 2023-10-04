@@ -201,7 +201,6 @@ public class Sorting {
         }
 
         int swapCount = 0;
-        int compaCount = 0;
 
         int end = arr.length - 1;
         int start = 0;
@@ -219,7 +218,7 @@ public class Sorting {
                     swapped = i;
                     swapCount++;
                 }
-                compaCount++;
+            
             }
             end = swapped;
             if(swapsMade){
@@ -233,14 +232,13 @@ public class Sorting {
                         swapped = i;
                         swapCount++;
                     }
-                    compaCount++;
+                    
                 }
                 start = swapped;
             }
         }
 
         System.out.println("SWAP COUNT:" + swapCount);
-        System.out.println("COMPARASION COUNT:" + compaCount);
 
     }
 
