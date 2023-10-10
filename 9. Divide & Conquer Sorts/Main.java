@@ -1,25 +1,9 @@
-import java.util.ArrayList;
+//import java.util.ArrayList;
 
 public class Main {
 
     public static void main(String[] args){
 
-        @SuppressWarnings("unchecked")
-        Numeros<Integer>[] arr = new Numeros[10];
-
-        Numeros<Integer> x1 = new Numeros<Integer>(3);
-        Numeros<Integer> x2 = new Numeros<Integer>(12);
-        Numeros<Integer> x3 = new Numeros<Integer>(5);
-        Numeros<Integer> x4 = new Numeros<Integer>(1);
-        arr[0] = x1;
-        arr[1] = x2;
-        arr[2] = x3;
-        arr[3] = x4;
-
-        ArrayList<MyObject> list = new ArrayList<MyObject>();
-        list.add(new MyObject(3));
-        list.add(new MyObject(12));
-        list.add(new MyObject(5));
         Comparacion<Integer> comp = new Comparacion<>();
         
 
