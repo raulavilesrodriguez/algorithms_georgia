@@ -6,9 +6,9 @@ import java.util.Comparator;
  * Your implementation of various sorting algorithms.
  *
  * @author RAÚL AVILÉS RODRÍGUEZ
- * @version 1.0
- * @userid bravil
- * @GTID 997 (i.e. 900000000)
+ * @version 41.6
+ * @userid bravile
+ * @GTID 9976 (i.e. 900000000)
  *
  * Collaborators: NONE
  *
@@ -271,8 +271,28 @@ public class Sorting {
      * @throws java.lang.IllegalArgumentException if the array or comparator is
      *                                            null
      */
+    @SuppressWarnings("unchecked")
     public static <T> void mergeSort(T[] arr, Comparator<T> comparator){
+        if(arr.length == 1){
+            return;
+        }
+        int length = arr.length;
+        int midIdx = length / 2;
         
+        T[] leftArray = (T[]) new Object[midIdx];
+        for(int i = 0; i < midIdx; i++){
+            leftArray[i] = arr[i];
+        }
+
+        T[] rightArray = (T[]) new Object[length - midIdx];
+        for(int i = 0; i < (length - midIdx); i++){
+            rightArray[i] = arr[midIdx + i];
+        }
+        mergeSort(leftArray, comparator);
+        mergeSort(rightArray, comparator);
+
+        int leftIdx, rightIdx, currIdx = 0;
+
     }
 
     /**
