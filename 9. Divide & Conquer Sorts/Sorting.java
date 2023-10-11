@@ -291,7 +291,32 @@ public class Sorting {
         mergeSort(leftArray, comparator);
         mergeSort(rightArray, comparator);
 
-        int leftIdx, rightIdx, currIdx = 0;
+        int leftIdx = 0;
+        int rightIdx = 0;
+        int currIdx = 0;
+
+        while(leftIdx < midIdx && rightIdx < (length-midIdx)){
+            
+            if(comparator.compare(leftArray[leftIdx], rightArray[rightIdx])<=0){
+                arr[currIdx] = leftArray[leftIdx];
+                leftIdx++;
+            }
+            else {
+                arr[currIdx] = rightArray[rightIdx];
+                rightIdx++;
+            }
+            currIdx++;
+        }
+        while(leftIdx < midIdx){
+            arr[currIdx] = leftArray[leftIdx];
+            leftIdx++;
+            currIdx++;
+        }
+        while(rightIdx < (length-midIdx)){
+            arr[currIdx] = rightArray[rightIdx];
+            rightIdx++;
+            currIdx++;
+        }
 
     }
 
