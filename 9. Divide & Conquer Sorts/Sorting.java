@@ -273,6 +273,12 @@ public class Sorting {
      */
     @SuppressWarnings("unchecked")
     public static <T> void mergeSort(T[] arr, Comparator<T> comparator){
+        if(arr == null){
+            throw new IllegalArgumentException("Cannot sort null array BROO");
+        }
+        if(comparator == null){
+            throw new IllegalArgumentException("Cannot sort with a null comparator PARCE");
+        }
         if(arr.length == 1){
             return;
         }
@@ -294,6 +300,7 @@ public class Sorting {
         int leftIdx = 0;
         int rightIdx = 0;
         int currIdx = 0;
+        int swapCount = 0; // to test
 
         while(leftIdx < midIdx && rightIdx < (length-midIdx)){
             
@@ -306,6 +313,7 @@ public class Sorting {
                 rightIdx++;
             }
             currIdx++;
+            swapCount++;
         }
         while(leftIdx < midIdx){
             arr[currIdx] = leftArray[leftIdx];
@@ -317,7 +325,7 @@ public class Sorting {
             rightIdx++;
             currIdx++;
         }
-
+        System.out.println("SWAP COUNT:" + swapCount);
     }
 
     /**

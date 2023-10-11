@@ -44,6 +44,14 @@ public class Main {
         String resultCocktail = toString(arr5);
         System.out.println(resultCocktail);
 
+        Integer[] arr6 = {3,10,7,9,12,2,6,9,1,6,7,4};
+        System.out.println("Unsorted array");
+        String result6 = toString(arr6);
+        System.out.println(result6);
+        System.out.println("Sorted array with MERGE SORT:");
+        Sorting.mergeSort(arr6, (a, b) -> a - b);
+        String resultMerge = toString(arr6);
+        System.out.println(resultMerge);
 
     }
 
