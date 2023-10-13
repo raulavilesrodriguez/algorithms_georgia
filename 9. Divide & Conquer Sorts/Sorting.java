@@ -1,5 +1,6 @@
 import java.util.Comparator;
-//import java.util.LinkedList;
+import java.util.LinkedList;
+import java.util.ArrayList;
 //import java.util.Random;
 
 /**
@@ -370,9 +371,12 @@ public class Sorting {
      * @throws java.lang.IllegalArgumentException if the array is null
      */
     public static void lsdRadixSort(int[] arr){
-
+        if(arr == null){
+            throw new IllegalArgumentException("Cannot sort null array BROO");
+        }        
+        ArrayList<LinkedList<Integer>> buckets = new ArrayList<>(10);
+        
     }
-
-
-
+    
+    
 }
