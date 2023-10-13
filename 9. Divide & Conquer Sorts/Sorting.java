@@ -1,6 +1,6 @@
 import java.util.Comparator;
 import java.util.LinkedList;
-import java.util.ArrayList;
+//import java.util.ArrayList;
 //import java.util.Random;
 
 /**
@@ -370,12 +370,58 @@ public class Sorting {
      * @param arr the array to be sorted
      * @throws java.lang.IllegalArgumentException if the array is null
      */
-    public static void lsdRadixSort(int[] arr){
+    @SuppressWarnings("unchecked")
+    public static void lsdRadixSort(Integer[] arr){
         if(arr == null){
             throw new IllegalArgumentException("Cannot sort null array BROO");
         }        
-        ArrayList<LinkedList<Integer>> buckets = new ArrayList<>(10);
-        
+        LinkedList<Integer>[] buckets = new LinkedList[10];
+        // Initialize each LinkedList in the array
+        for(int i = 0; i < buckets.length; i++){
+            buckets[i] = new LinkedList<>();
+        }
+        int largest = arr[0];
+        for(int i = 0; i<arr.length-1; i++){
+            if(arr[i]>=arr[i+1] && arr[i]>largest){
+                largest = arr[i];
+            } 
+            if(arr[i]<=arr[i+1] && arr[i+1]>largest){
+                largest = arr[i+1];
+            }
+        }
+        System.out.println("VER LARGE: " + largest);
+        int iterations = 0;
+        int temp = largest;
+        while(temp != 0){
+            temp = temp / 10;
+            iterations++;
+        }
+        System.out.println("VER ITERATIONS: " + iterations);
+        for(int i = 1; i<=iterations; i++){
+            for(int j = 0; j<= arr.length-1; j++){
+                int value = arr[j];
+                int go = 0;
+                int digit = 0;
+                while(go < i){
+                    digit = Math.abs(value % 10);
+                    value /= 10;
+                    go++;
+                }
+                LinkedList<Integer> bucket = buckets[digit];
+                bucket.add(arr[j]);
+                buckets[digit] = bucket;
+            }
+            int index = 0;
+
+            int base = 9; // base 10, 0 to 9
+            for(int z = 0; z<=base; z++){
+                LinkedList<Integer> bucket = buckets[z];
+                while(!bucket.isEmpty()){
+                    arr[index] =bucket.removeFirst();
+                    index++;
+                }
+            }
+        }     
     }
     
     

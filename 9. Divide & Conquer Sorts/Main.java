@@ -53,6 +53,14 @@ public class Main {
         String resultMerge = toString(arr6);
         System.out.println(resultMerge);
 
+        Integer[] arr7 = {371,49,361,497,288,388,72,183,5,6,76,304,352};
+        System.out.println("Unsorted array");
+        String result7 = toString(arr7);
+        System.out.println(result7);
+        System.out.println("Sorted array with LSD RADIX SORT:");
+        Sorting.lsdRadixSort(arr7);
+        String resultLSDradix = toString(arr7);
+        System.out.println(resultLSDradix);
     }
 
     // Method to print results
