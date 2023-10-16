@@ -280,7 +280,7 @@ public class Sorting {
         if(comparator == null){
             throw new IllegalArgumentException("Cannot sort with a null comparator PARCE");
         }
-        if(arr.length == 1){
+        if(arr.length <= 1){
             return;
         }
         int length = arr.length;
