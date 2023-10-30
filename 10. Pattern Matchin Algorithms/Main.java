@@ -15,6 +15,8 @@ public class Main {
         String multiplePattern = "ab";
         String multipleText = "abab";
 
+        //_________BOYER MOORE algorithm_______________
+
         /*
             pattern: sell
             text: She sells seashells by the seashore.
@@ -101,7 +103,45 @@ public class Main {
         comparisons: 14
          */
 
+        CharacterComparator comparator6 = new CharacterComparator();
+        System.out.println("KMP: " + PatternMatching.kmp(kmpPattern, kmpText, comparator6));
+        System.out.println("Compararison count was: " + comparator6.getComparisonCount());
         
+        /*
+            pattern: ababa
+            text: ababbaba
+            indices: -
+            expected total comparison: 10
+         */
+        /*
+            failure table: [0, 0, 1, 2, 3]
+            comparisons: 4
+         */
+        /*
+        a | b | a | b | b | a | b | a
+        --+---+---+---+---+---+---+---
+        a | b | a | b | a |   |   |
+        - | - | - | - | - |   |   |            comparisons: 5
+          |   | a | b | a | b | a |
+          |   |   |   | - |   |   |            comparisons: 1
+
+        comparisons: 6
+         */
+        CharacterComparator comparator7 = new CharacterComparator();
+        System.out.println("KMP: " + PatternMatching.kmp(kmpPattern, kmpNoMatch, comparator7));
+        System.out.println("Compararison count was: " + comparator7.getComparisonCount());
+
+        /*
+            pattern: ababbaba
+            text: ababa
+            indices: -
+            expected total comparison: 0
+         */
+        CharacterComparator comparator8 = new CharacterComparator();
+        System.out.println("KMP: " + PatternMatching.kmp(kmpNoMatch, kmpPattern, comparator8));
+        System.out.println("Compararison count was: " + comparator8.getComparisonCount());
+
+
 
 
     }

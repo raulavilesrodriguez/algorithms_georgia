@@ -41,12 +41,16 @@ public class PatternMatching {
             throw new IllegalArgumentException("Cannot use null comparator.");
         }
         ArrayList<Integer> lista = new ArrayList<>();
+        if (pattern.length() > text.length()) {
+            return lista;
+        }
         int [] failureTable = buildFailureTable(pattern, comparator);
         int n = text.length();
         int m = pattern.length();
-        int i = 0;
-        int j = 0;
-        while (i < (n - m)) {
+        int i = 0; //index pattern
+        int j = 0; // index text
+        
+        while (i <= (n - m)) {
             while (j < m && comparator.compare(text.charAt(i+j), pattern.charAt(j))==0) {
                 j++;
             }
@@ -58,20 +62,16 @@ public class PatternMatching {
                     lista.add(i);
                     i++;
                 }
-                else {
-                    int shift = failureTable[j - 1];
-                    i = i + j - shift;
-                    j = shift;
-                }
+                int shift = failureTable[j - 1];
+                i = i + j - shift;
+                j = shift;   
             }
         }
-
-
-
+    
         return lista;
     }
 
-    /**
+    /** 
      * Builds failure table that will be used to run the Knuth-Morris-Pratt
      * (KMP) algorithm.
      *
