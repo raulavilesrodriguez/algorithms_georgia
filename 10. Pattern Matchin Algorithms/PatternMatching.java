@@ -7,7 +7,7 @@ import java.util.Map;
  * Your implementations of various string searching algorithms.
  *
  * @author BYRON RAUL AVILES RODRIGUEZ
- * @version 1.0
+ * @version 2.0
  * @userid bra (i.e. gburdell3)
  * @GTID 999909
  *
@@ -33,7 +33,42 @@ public class PatternMatching {
      */
     public static List<Integer> kmp(CharSequence pattern, CharSequence text,
                                     CharacterComparator comparator) {
-        
+        if (pattern == null || pattern.length() == 0) {
+            throw new IllegalArgumentException("Pattern cannot be used.");
+        } else if (text == null) {
+            throw new IllegalArgumentException("Cannot use null text.");
+        } else if (comparator == null) {
+            throw new IllegalArgumentException("Cannot use null comparator.");
+        }
+        ArrayList<Integer> lista = new ArrayList<>();
+        int [] failureTable = buildFailureTable(pattern, comparator);
+        int n = text.length();
+        int m = pattern.length();
+        int i = 0;
+        int j = 0;
+        while (i < (n - m)) {
+            while (j < m && comparator.compare(text.charAt(i+j), pattern.charAt(j))==0) {
+                j++;
+            }
+            if(j == 0){
+                i++;
+            }
+            else {
+                if(j == m){
+                    lista.add(i);
+                    i++;
+                }
+                else {
+                    int shift = failureTable[j - 1];
+                    i = i + j - shift;
+                    j = shift;
+                }
+            }
+        }
+
+
+
+        return lista;
     }
 
     /**
@@ -70,7 +105,28 @@ public class PatternMatching {
         } else if (comparator == null) {
             throw new IllegalArgumentException("Cannot use null comparator");
         }
-        
+
+        int i = 0;
+        int j = 1;
+        int m = pattern.length();
+        int[] f = new int[m];
+        f[0] = 0;
+
+        while (j < m) {
+            if(comparator.compare(pattern.charAt(i), pattern.charAt(j))==0){
+                f[j] = i + 1;
+                i++;
+                j++;
+            }
+            else if(i == 0){
+                f[j] = 0;
+                j++;
+            }
+            else {
+                i = f[i-1];
+            }
+        }
+        return f;
     }
 
     /**
@@ -112,6 +168,7 @@ public class PatternMatching {
             }
             if(j == -1){
                 lista.add(i);
+                i++;
             }
             else {
                 int shift = last.getOrDefault(text.charAt(i+j), -1);
@@ -229,7 +286,11 @@ public class PatternMatching {
         } else if (comparator == null) {
             throw new IllegalArgumentException("Cannot use null comparator.");
         }
+        ArrayList<Integer> lista = new ArrayList<>();
         
+
+
+        return lista;
     }
 
     /**
