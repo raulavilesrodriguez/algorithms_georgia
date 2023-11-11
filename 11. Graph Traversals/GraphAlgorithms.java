@@ -67,11 +67,12 @@ public class GraphAlgorithms {
             for(VertexDistance<T> verticeDistancia : graph.getAdjList().get(v)){
                 Vertex<T> w = verticeDistancia.getVertex();
                 if(!VisitedSet.contains(w)){
-                    
+                    queue.add(w);
+                    VisitedSet.add(w); // Add w to VisitedSet
                 }
             }
         }
-
+        
         return list;
     }
 
@@ -113,11 +114,23 @@ public class GraphAlgorithms {
                     "Graph does not contain start vertex");
         }
         List<Vertex<T>> list = new ArrayList<>();
-        
-        return list;
+        Set<Vertex<T>> VisitedSet = new HashSet<>();
+        List<Vertex<T>> listaResultado = helper(start, graph, VisitedSet, list);
+        return listaResultado;
     }
 
-    
+    private static <T> List<Vertex<T>> 
+    helper(Vertex<T> s, Graph<T> G, Set<Vertex<T>> VS, List<Vertex<T>> L){
+        VS.add(s);
+        L.add(s);
+        for(VertexDistance<T> verticeDistancia : G.getAdjList().get(s)){
+            Vertex<T> w = verticeDistancia.getVertex();
+            if(!VS.contains(w)){
+                helper(w, G, VS, L);
+            }
+        }
+        return L;
+    }
 
 
     /**
