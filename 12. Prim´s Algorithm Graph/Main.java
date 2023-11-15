@@ -60,7 +60,27 @@ public class Main {
         dijkExpected.put(new Vertex<>('E'), 1);
         dijkExpected.put(new Vertex<>('F'), 7);
 
+        // -----Prims Algorithm-------
+        Set<Edge<Character>> mstActual = GraphAlgorithms.prims(
+            new Vertex<>('A'), undirectedGraph);
 
+        Set<Edge<Character>> edges = new HashSet<>();
+        edges.add(new Edge<>(new Vertex<>('C'), new Vertex<>('D'), 2));
+        edges.add(new Edge<>(new Vertex<>('D'), new Vertex<>('C'), 2));
+        edges.add(new Edge<>(new Vertex<>('A'), new Vertex<>('D'), 4));
+        edges.add(new Edge<>(new Vertex<>('D'), new Vertex<>('A'), 4));
+        edges.add(new Edge<>(new Vertex<>('D'), new Vertex<>('E'), 1));
+        edges.add(new Edge<>(new Vertex<>('E'), new Vertex<>('D'), 1));
+        edges.add(new Edge<>(new Vertex<>('B'), new Vertex<>('E'), 3));
+        edges.add(new Edge<>(new Vertex<>('E'), new Vertex<>('B'), 3));
+        edges.add(new Edge<>(new Vertex<>('E'), new Vertex<>('F'), 6));
+        edges.add(new Edge<>(new Vertex<>('F'), new Vertex<>('E'), 6));
+
+        String esperadoPrims = toStringPrims(edges);
+        System.out.println("Prims expected: " + esperadoPrims);
+
+        String resultadoPrims = toStringPrims(mstActual);
+        System.out.println("Prims result: " + resultadoPrims);
     }
 
     /**
@@ -126,6 +146,16 @@ public class Main {
         String result = "";
         for (Vertex<T> vertex : list){
             result = result + vertex.getData() + ", ";
+        }
+        result = "[" + result.replaceAll(", $", "") + "]";
+        return result;
+    }
+
+    // Method to print results Prims
+    public static <T> String toStringPrims(Set<Edge<T>> Set){
+        String result = "";
+        for (Edge<T> edge : Set){
+            result = result + "(" + edge.getU() + ", " + edge.getV() + ", " + edge.getWeight() + ")" + ", ";
         }
         result = "[" + result.replaceAll(", $", "") + "]";
         return result;

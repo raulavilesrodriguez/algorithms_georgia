@@ -246,15 +246,21 @@ public class GraphAlgorithms {
         Set<Edge<T>> mst = new HashSet<>();
         Queue<Edge<T>> pqueue = new PriorityQueue<>();
         
-        for(Edge<T> e : graph.getEdges()){
+        for(VertexDistance<T> verticeDistancia : graph.getAdjList().get(start)){
+            Vertex<T> v = verticeDistancia.getVertex();
+            int weight = verticeDistancia.getDistance();
+            Edge<T> e = new Edge<>(start, v, weight);
             pqueue.add(e);
         }
+        //System.out.println("Holaaa: " + pqueue.toString());
         VisitedSet.add(start);
         while (VisitedSet.size() < graph.getAdjList().size() && !(pqueue.isEmpty())) {
             Edge<T> edge = pqueue.remove();
             if(!VisitedSet.contains(edge.getV())){
                 VisitedSet.add(edge.getV());
                 mst.add(edge);
+                Edge<T> eReverse = new Edge<>(edge.getV(), edge.getU(), edge.getWeight());
+                mst.add(eReverse);
                 for(VertexDistance<T> verticeDistancia : graph.getAdjList().get(edge.getV())){
                     Vertex<T> x = verticeDistancia.getVertex();
                     int weight = verticeDistancia.getDistance();
